@@ -31,6 +31,7 @@
             this.locEnter = new System.Windows.Forms.TextBox();
             this.getWeath = new System.Windows.Forms.Button();
             this.weathFOR = new System.Windows.Forms.TextBox();
+            this.rtbGPT = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // locEnter
@@ -59,11 +60,20 @@
             this.weathFOR.Size = new System.Drawing.Size(181, 77);
             this.weathFOR.TabIndex = 2;
             // 
+            // rtbGPT
+            // 
+            this.rtbGPT.Location = new System.Drawing.Point(152, 317);
+            this.rtbGPT.Name = "rtbGPT";
+            this.rtbGPT.Size = new System.Drawing.Size(460, 96);
+            this.rtbGPT.TabIndex = 3;
+            this.rtbGPT.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.rtbGPT);
             this.Controls.Add(this.weathFOR);
             this.Controls.Add(this.getWeath);
             this.Controls.Add(this.locEnter);
@@ -79,6 +89,7 @@
         private System.Windows.Forms.TextBox locEnter;
         private System.Windows.Forms.Button getWeath;
         private System.Windows.Forms.TextBox weathFOR;
+        private System.Windows.Forms.RichTextBox rtbGPT;
     }
 }
 
