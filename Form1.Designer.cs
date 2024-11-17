@@ -36,7 +36,9 @@
             // 
             // locEnter
             // 
-            this.locEnter.Location = new System.Drawing.Point(289, 38);
+            this.locEnter.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.locEnter.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.locEnter.Location = new System.Drawing.Point(284, 49);
             this.locEnter.Multiline = true;
             this.locEnter.Name = "locEnter";
             this.locEnter.Size = new System.Drawing.Size(183, 60);
@@ -44,24 +46,29 @@
             // 
             // getWeath
             // 
-            this.getWeath.Location = new System.Drawing.Point(289, 116);
+            this.getWeath.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.getWeath.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.getWeath.Location = new System.Drawing.Point(284, 115);
             this.getWeath.Name = "getWeath";
             this.getWeath.Size = new System.Drawing.Size(96, 44);
             this.getWeath.TabIndex = 1;
-            this.getWeath.Text = "button1";
-            this.getWeath.UseVisualStyleBackColor = true;
+            this.getWeath.Text = "Get response";
+            this.getWeath.UseVisualStyleBackColor = false;
             this.getWeath.Click += new System.EventHandler(this.getWeath_Click);
             // 
             // weathFOR
             // 
-            this.weathFOR.Location = new System.Drawing.Point(290, 200);
+            this.weathFOR.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.weathFOR.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.weathFOR.Location = new System.Drawing.Point(284, 165);
             this.weathFOR.Multiline = true;
             this.weathFOR.Name = "weathFOR";
-            this.weathFOR.Size = new System.Drawing.Size(181, 77);
+            this.weathFOR.Size = new System.Drawing.Size(183, 60);
             this.weathFOR.TabIndex = 2;
             // 
             // rtbGPT
             // 
+            this.rtbGPT.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.rtbGPT.Location = new System.Drawing.Point(152, 317);
             this.rtbGPT.Name = "rtbGPT";
             this.rtbGPT.Size = new System.Drawing.Size(460, 96);
@@ -72,13 +79,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.rtbGPT);
             this.Controls.Add(this.weathFOR);
             this.Controls.Add(this.getWeath);
             this.Controls.Add(this.locEnter);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "API test";
             this.ResumeLayout(false);
             this.PerformLayout();
 

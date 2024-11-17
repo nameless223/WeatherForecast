@@ -24,7 +24,7 @@ namespace WForecast
 
         private async Task<string> GetWeatherAsync(string location) //func for getting weather info
         {
-            string apiKey = "623f840fa9b23c4888a9e3d1a00c126d"; //openweather key...need to create secure file or change to enviroment variable 
+            string apiKey = "623f840fa9b23c4888a9e3d1a00c126d"; //openweather key need to change to enviroment variable 
             string url = $"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={apiKey}&units=imperial";
 
             using (HttpClient client = new HttpClient())
@@ -47,7 +47,7 @@ namespace WForecast
         }
         private async Task<string> GetChatGptResponseAsync(string query)
         {
-            string apiKey = "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"; //gpt key... need to change to secure file, or enviroment variable
+            string apiKey = "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"; //gpt key need to change to enviroment variable
             string url = "https://api.openai.com/v1/chat/completions";
 
             using (HttpClient client = new HttpClient())
@@ -82,9 +82,9 @@ namespace WForecast
             }
         }
 
-        private async void getWeath_Click(object sender, EventArgs e) //button function for weather results + gpt results
+        private async void getWeath_Click(object sender, EventArgs e) //button for weather results + gpt results
         {
-            string location = locEnter.Text; //where you enter text
+            string location = locEnter.Text; //text box for input
             string weatherInfo = await GetWeatherAsync(location);
             weathFOR.Text = weatherInfo; //text box for output
 
