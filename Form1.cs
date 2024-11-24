@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq; //lets you use json info
+using Newtonsoft.Json.Linq;
 
 namespace WForecast
 {
@@ -18,79 +18,89 @@ namespace WForecast
     {
         public Form1()
         {
-            InitializeComponent(); //constructor
+            InitializeComponent();
         }
 
+        //public class Message
+        //{
+        //    public string role { get; set; }
+        //    public string content { get; set; } 
+        //}
 
-        private async Task<string> GetWeatherAsync(string location) //func for getting weather info
+        private string Forecast(string location)
         {
-            string apiKey = "**************************"; //openweather key...need to create secure file or change to enviroment variable 
+            string apiKey = "623f840fa9b23c4888a9e3d1a00c126d"; //openweather api
             string url = $"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={apiKey}&units=imperial";
 
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    string json = await response.Content.ReadAsStringAsync();
-                    JObject data = JObject.Parse(json);
+                    string response = client.GetStringAsync(url).Result; 
+                    JObject data = JObject.Parse(response);
                     string weather = data["weather"][0]["description"].ToString();
-                    string temp = data["main"]["temp"].ToString(); 
-                    return $"Weather: {weather}, Temperature: {temp}°F"; //changes from C to F
+                    string temp = data["main"]["temp"].ToString();
+                    return $"Weather: {weather}, Temperature: {temp}°F";
                 }
-                else
+                catch
                 {
-                    string errorContent = await response.Content.ReadAsStringAsync();
-                    return $"Could not fetch weather data {response.StatusCode} - {errorContent}"; //Error Handling
-                }
-            }
-        }
-        private async Task<string> GetChatGptResponseAsync(string query)
-        {
-            string apiKey = "*******************************************************"; //gpt key... need to change to secure file, or enviroment variable
-            string url = "https://api.openai.com/v1/chat/completions";
-
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey); //creates token for api request
-                var jsonData = new
-                {
-                    model = "gpt-3.5-turbo",
-                    messages = new[]
-                    {
-                        new { role = "user", content = query } 
-                    }
-                };
-
-                string json = Newtonsoft.Json.JsonConvert.SerializeObject(jsonData); //converts .net objects into json strings
-                HttpContent content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(url, content);
-                if (response.IsSuccessStatusCode)
-                {
-                    string resultJson = await response.Content.ReadAsStringAsync();
-                    JObject resultData = JObject.Parse(resultJson);
-                    string chatResponse = resultData["choices"][0]["message"]["content"].ToString();
-                    return chatResponse;
-                }
-                else
-                {
-                    
-                    string errorContent = await response.Content.ReadAsStringAsync(); 
-                    return $"Error fetching ChatGPT response: {response.StatusCode} - {errorContent}"; //temporary error details for troubleshooting
+                    return "Could not fetch weather data.";
                 }
             }
         }
 
-        private async void getWeath_Click(object sender, EventArgs e) //button for weather results + gpt results
+        //private string GPTResponse(string query)
+        //{
+        //    string apiKey = "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"; //gpt key
+        //    string url = "https://api.openai.com/v1/chat/completions";
+
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
+
+        //        //Dictionary<string, object> jsonData = new Dictionary<string, object>
+        //        //{
+        //        //    { "model", "gpt-3.5-turbo" },
+        //        //    { "messages", new[]
+        //        //        {
+        //        //            new Dictionary<string, string> { { "role", "user" }, { "content", query } }
+        //        //        }
+        //        //    }
+        //        //};
+        //        var jsondata = new
+        //        {
+        //            model = "gpt-3.5-turbo",
+        //            messages = new[]
+        //            {
+        //                new Message { role = "User", content = query}
+        //            }
+
+
+
+        //        };
+        //        try
+        //        {
+        //            string jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(jsondata); //conversion to json string
+        //            HttpContent content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json"); //ensures correct format
+        //            HttpResponseMessage response = client.PostAsync(url, content).Result;  //sends request
+        //            string resultString = response.Content.ReadAsStringAsync().Result; //get api response
+        //            JObject result = JObject.Parse(resultString); //parse response 
+        //            return result["choices"][0]["message"]["content"].ToString(); //get generated response
+        //        }
+        //        catch
+        //        {
+        //            return "Could not fetch ChatGPT response.";
+        //        }
+        //    }
+        //}
+
+        private void getWeath_Click(object sender, EventArgs e)
         {
-            string location = locEnter.Text; //text box for input
-            string weatherInfo = await GetWeatherAsync(location);
-            weathFOR.Text = weatherInfo; //text box for output
+            
+            weathFOR.Text = Forecast(locEnter.Text);
 
             
-            string chatResponse = await GetChatGptResponseAsync(weatherInfo); //asking chatgpt about weather
-            rtbGPT.Text = chatResponse; //textbox for gpt response
+            //rtbGPT.Text = GPTResponse(weathFOR.Text);
         }
     }
 }
