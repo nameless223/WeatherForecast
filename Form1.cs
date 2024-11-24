@@ -29,7 +29,7 @@ namespace WForecast
 
         private string Forecast(string location)
         {
-            string apiKey = "623f840fa9b23c4888a9e3d1a00c126d"; //openweather api
+            string apiKey = "********"; //openweather api
             string url = $"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={apiKey}&units=imperial";
 
             using (HttpClient client = new HttpClient())
